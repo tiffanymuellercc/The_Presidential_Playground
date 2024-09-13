@@ -10,6 +10,10 @@ import json
 import csv  # Import the CSV module
 
 app = Flask(__name__)
+
+# Enable serving of static files like CSS, JS, and images
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Disable caching in development
+
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -108,7 +112,7 @@ def index():
 @socketio.on('start_conversation')
 def handle_start_conversation(data):
     topic = data['topic']
-    socketio.emit('new_message', {'role': 'system', 'content': f"Starting conversation on topic: {topic}"})
+    socketio.emit('new_message', {'role': 'user', 'content': f"{topic}"})
 
     for agent in agents:
         agent.reset_history()
@@ -127,7 +131,7 @@ def run_conversation(agents, initial_message, num_turns=15):
         socketio.emit('new_message', {'role': agent.name, 'content': response})
         message = response
         last_agent = agent
-        time.sleep(1)  # Add a delay between messages
+        time.sleep(.5)  # Add a delay between messages
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

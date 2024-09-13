@@ -1,0 +1,141 @@
+/* Background */
+body {
+    background-color: rgb(116, 179, 255);
+    margin: 0;
+    padding: 0; 
+    display: flex; 
+    min-height: 100vh; 
+    min-width: 100vw;
+    justify-content: center; 
+}
+
+/* Content box */
+#content-box {
+    background-color: white; 
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 5rem 16rem;
+    border-radius: 10px;
+    position: relative;
+    flex: 1; 
+    box-sizing: border-box; 
+    display: flex; 
+    flex-direction: column; 
+    min-width: 400px;
+}
+
+/* h1 */
+h1 {
+    text-align: center;
+    font-family: 'Roboto', Arial, sans-serif; 
+    font-size: 16px; 
+    line-height: 1.5; 
+    margin-bottom: 10px;
+    
+}
+
+/* Header container */
+.header-container-top {
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(10px);
+    padding: 1.1rem;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+    margin-left: -20px; 
+    margin-right: -20px; 
+    border-bottom: 0.5px solid lightgray;
+}
+
+/* Chat box styling */
+#chat {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Message styling */
+.message {
+    font-family: 'Roboto', Arial, sans-serif; 
+    font-size: 14px; 
+    line-height: 1.5; 
+    margin-bottom: 10px;
+    font-weight: 100;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%; /* Adjust as needed */
+    word-wrap: break-word; /* Ensures text wraps within the bubble */
+    background-color: lightgray;
+    align-self: flex-start;
+}
+
+
+/* User message alignment */
+.message.user {
+    align-self: flex-end; /* Aligns to the right side */
+    background-color: blue; /* Optional: Different color for user messages */
+    color:white;
+}
+
+/* Container for the input field and button */
+.input-button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    width: 100%; 
+}
+
+/* Input field styling */
+input[type="text"] {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    flex: 1; 
+    font-size: 16px;
+    line-height: 1.5; 
+    min-width: 0;
+}
+
+/* Button styling */
+button {
+    background-color: rgb(0, 85, 255);
+    border: none;
+    width: 36px; 
+    height: 36px; 
+    border-radius: 50%;
+    font-size: 16px; 
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding: 0; 
+    line-height: 0; 
+}
+
+button:hover {
+    background-color: rgb(116, 179, 255);
+}
+
+/* Button-Image styling */
+img {
+    width: 20px; 
+    height: 20px; 
+    display: block; 
+}
+
+/* Header container */
+.header-container-bottom {
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(10px); 
+    padding: 1.1rem; 
+    border-radius: 0 0 10px 10px;
+    border-top: 0.5px solid lightgray; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0;
+    right: 0; 
+    display: flex;
+    align-items: center; 
+}

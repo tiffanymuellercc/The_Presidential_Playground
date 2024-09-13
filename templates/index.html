@@ -2,25 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Agent Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatRume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <style>
-        .message {
-            margin-bottom: 10px;
-        }
-        #chat {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-    </style>
 </head>
 <body>
-    <h1>Chat with Agents</h1>
-    <div id="chat"></div>
-    <input type="text" id="topic_input" placeholder="Enter a topic..." autocomplete="off"/>
-    <button onclick="startConversation()">Start Conversation</button>
+    <div id="content-box">
+        <div class="header-container-top">
+            <h1>The Presidential Playground 🏛️</h1>
+        </div>
+        <div id="chat"></div>
+        <div class="header-container-bottom">
+            <div class="input-button-container">
+                <input type="text" id="topic_input" placeholder="Enter a topic..." autocomplete="off"/>
+                <button onclick="startConversation()">
+                    <img src="{{ url_for('static', filename='images/upload.png') }}" alt="Start Conversation" />
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         var socket = io.connect('http://127.0.0.1:5000');
@@ -30,24 +32,21 @@
         socket.on('new_message', function(msg) {
             var chat = document.getElementById('chat');
 
-            // Check if the role has changed or if there is no current message container
             if (currentRole !== msg.role || !currentMessageContainer) {
-                // Create a new message container for each new message
                 currentMessageContainer = document.createElement('div');
-                currentMessageContainer.className = 'message';
+                currentMessageContainer.className = `message ${msg.role}`;
                 chat.appendChild(currentMessageContainer);
                 currentRole = msg.role;
             }
 
-            // Update the current message container with the new content
-            currentMessageContainer.textContent = `${msg.role}: ${msg.content}`;
-            chat.scrollTop = chat.scrollHeight;  // Scroll to the bottom
+            currentMessageContainer.innerHTML = `<span style="font-weight: bold;">${msg.role}</span><br>${msg.content}`;
+            chat.scrollTop = chat.scrollHeight
         });
 
         function startConversation() {
             var input = document.getElementById('topic_input');
             var topic = input.value;
-            socket.emit('start_conversation', {topic: topic});
+            socket.emit('start_conversation', { topic: topic });
             input.value = '';
         }
     </script>

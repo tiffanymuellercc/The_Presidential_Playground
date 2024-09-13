@@ -9,7 +9,13 @@ def get_embedding(text, model="model-identifier"):
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 def process_csv(input_file, output_file, model="model-identifier"):
-    with open(input_file, mode='r', newline='') as infile, open(output_file, mode='w', newline='') as outfile:
+    # Specified utf-8 encoding when opening the CSV file to avoid UnicodeDecodeError.
+    # This error occurs because the default Windows encoding (cp1252) can't handle certain special characters.
+    # utf-8 is more universal and supports a wider range of characters, preventing such errors.
+    with open(input_file, mode='r', newline='', encoding='utf-8') as infile, \
+         open(output_file, mode='w', newline='', encoding='utf-8') as outfile:
+    # with open(input_file, mode='r', newline='') as infile, open(output_file, mode='w', newline='') as outfile:
+        
         reader = csv.reader(infile)
         writer = csv.writer(outfile)
 
